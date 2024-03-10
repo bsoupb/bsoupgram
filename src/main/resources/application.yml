@@ -13,7 +13,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/memo
+    url: jdbc:mysql://localhost:3306/bsoupgram
     username: root
     password: root
   mvc:
