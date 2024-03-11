@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+#wrap {
+	width:1200px;
+	height:800px;
+	margin:0 auto;
+}
+
+.main {
+	height:700px;
+	margin:0 auto;
+	width:70%
+}
+
+footer {
+	height:100px;
+}
+
+.box {
+	padding:10px;
+	margin:20px;
+}
