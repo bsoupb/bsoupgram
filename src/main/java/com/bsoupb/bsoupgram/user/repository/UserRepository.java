@@ -13,5 +13,6 @@ public interface UserRepository {
 			, @Param("email") String email
 			);
 	
-	public int isDuplicateUser(@Param("loginId") String loginId);
+	// 전달받은 loginId 와 일치하는 행의 개수를 조회하는 기능
+	public int selectCountByLoginId(@Param("loginId") String loginId);
 }

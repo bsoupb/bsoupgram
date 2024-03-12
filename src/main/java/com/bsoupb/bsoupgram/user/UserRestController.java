@@ -38,17 +38,13 @@ public class UserRestController {
 	}
 	
 	@GetMapping("/user/duplicate-id")
-	public Map<String, Boolean> isDuplicate(@RequestParam("loginId") String loginId){
+	public Map<String, Boolean> isDuplicateId(@RequestParam("loginId") String loginId){
 		
-		int count = userService.isDuplicateUser(loginId);
+		boolean isDuplicate = userService.isDuplicateId(loginId);
 		
 		Map<String, Boolean> resultMap = new HashMap<>();
 		
-		if(count >= 1) {
-			resultMap.put("result", true);
-		} else {
-			resultMap.put("result", false);
-		}
+		resultMap.put("isDuplicate", isDuplicate);
 		
 		return resultMap;
 	}

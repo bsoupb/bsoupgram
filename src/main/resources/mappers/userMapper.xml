@@ -21,7 +21,7 @@
 		)
 	</insert>
 	
-	<select id="isDuplicateUser" parameterType="string" resultType="int">
+	<select id="selectCountByLoginId" parameterType="string" resultType="int">
 		SELECT 
 			count(*) 
 		FROM

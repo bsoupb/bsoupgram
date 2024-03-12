@@ -21,9 +21,18 @@
 								<div class="input-group-append">
 									<button class="btn btn-secondary" type="button" id="isDuplicateBtn">중복확인</button>
 								</div>
-							</div>						
+							</div>
+							<div class="text-primary small d-none pt-1" id="duplicateText">
+								중복된 아이디입니다.						
+							</div>
+							<div class="text-primary small d-none pt-1" id="availableText">
+								사용할 수 있는 아이디입니다.						
+							</div>
 							<div class="pt-3">
 								<input type="password" id="passwordInput" class="form-control" style="width:350px;" placeholder="비밀번호">
+							</div>
+							<div class="pt-3">
+								<input type="password" id="passwordConfirmInput" class="form-control" style="width:350px;" placeholder="비밀번호 확인">
 							</div>
 							<div class="pt-3">
 								<input type="text" id="nameInput" class="form-control" style="width:350px;" placeholder="이름">
@@ -53,19 +62,38 @@
 
 	$(document).ready(function(){
 		
+		// 중복확인 체크 여부
+		var isDuplicateCheck = false;
+		
+		// id 중복 여부
+		var isDuplicateId = true;
+		
 		$("#isDuplicateBtn").on("click", function(){
 			
 			var id = $("#idInput").val();
+			
+			if(id == ""){
+				alert("아이디를 입력해 주세요.");
+				$("idInput").focus();
+				return;
+			}
 			
 			$.ajax({
 				type:"get"
 				, url:"/user/duplicate-id"
 				, data:{"loginId":id}
 				, success:function(data){
-					if(data.result){
-						alert("아이디가 중복입니다.")
+					
+					// 중복확인 체크
+					isDuplicateCheck = true;
+					isDuplicateId = data.isDuplicate;
+					
+					if(data.isDuplicate){
+						$("#duplicateText").removeClass("d-none");
+						$("#availableText").addClass("d-none");
 					} else{
-						alert("사용할 수 있는 아이디입니다.")
+						$("#availableText").removeClass("d-none");
+						$("#duplicateText").addClass("d-none");
 					}
 				}
 				, error:function(){
@@ -79,6 +107,7 @@
 			
 			var id = $("#idInput").val();
 			var password = $("#passwordInput").val();
+			var passwordConfirm = $("#passwordConfirmInput").val();
 			var name = $("#nameInput").val();
 			var email = $("#emailInput").val();
 			
@@ -88,9 +117,27 @@
 				return;
 			}
 			
+			// id 중복확인 안한 경우
+			if(!isDuplicateCheck){
+				alert("아이디 중복 확인을 해주세요");
+				return;
+			}
+			
+			// id 중복된 경우 
+			if(isDuplicateId){
+				alert("아이디가 중복되었습니다.");
+				return;
+			}
+			
 			if(password == ""){
 				alert("비밀번호를 입력해 주세요.");
 				$("#passwordInput").focus();
+				return;
+			}
+			
+			if(password != passwordConfirm){
+				alert("비밀번호를 확인해 주세요.");
+				$("#passwordConfirmInput").focus();
 				return;
 			}
 			

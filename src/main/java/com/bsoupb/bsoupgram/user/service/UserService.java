@@ -13,11 +13,23 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	public int addUser(String loginId, String password, String name, String email) {
+		
+		// 암호화
 		String encryptPassword = EncryptUtils.md5(password);
 		return userRepository.insertUser(loginId, encryptPassword, name, email);
 	}
 	
-	public int isDuplicateUser(String loginId) {
-		return userRepository.isDuplicateUser(loginId);
+	// 전달받은 loginId 값이 중복되었는지 알려주는 기능
+	public boolean isDuplicateId(String loginId) {
+		
+		int count =  userRepository.selectCountByLoginId(loginId);
+		
+		if(count >= 1) {
+			// 중복
+			return true;
+		} else {
+			// 중복 아님
+			return false;
+		}
 	}
 }
