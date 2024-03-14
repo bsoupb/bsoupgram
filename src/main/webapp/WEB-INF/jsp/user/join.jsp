@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,7 @@
 								<input type="text" id="emailInput" class="form-control" style="width:350px;" placeholder="이메일">
 							</div>
 							<div class="pt-3">
-								<button type="button" id="joinBtn" class="form-control btn btn-primary" style="width:350px;">로그인</button>
+								<button type="button" id="joinBtn" class="form-control btn btn-primary" style="width:350px;">회원가입</button>
 							</div>
 							<div class="box d-flex justify-content-center align-items-center">
 								<div>계정이 있으신가요?</div>
@@ -67,6 +68,15 @@
 		
 		// id 중복 여부
 		var isDuplicateId = true;
+		
+		$("#idInput").on("input", function(){
+			// 아이디 중복 확인과 관련된 모든 부분을 초기화 한다
+			isDuplicateCheck = false;
+			isDuplicateId = true;
+			
+			$("#duplicateText").addClass("d-none");
+			$("#availableText").addClass("d-none");
+		});
 		
 		$("#isDuplicateBtn").on("click", function(){
 			

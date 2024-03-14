@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bsoupb.bsoupgram.common.EncryptUtils;
+import com.bsoupb.bsoupgram.user.domain.User;
 import com.bsoupb.bsoupgram.user.repository.UserRepository;
 
 @Service
@@ -31,5 +32,12 @@ public class UserService {
 			// 중복 아님
 			return false;
 		}
+	}
+	
+	public User getUser(String loginId, String password) {
+		
+		String encryptPassword = EncryptUtils.md5(password);
+		return userRepository.selectUser(loginId, encryptPassword);
+		
 	}
 }

@@ -6,8 +6,12 @@
 	margin:0 auto;
 }
 
+header {
+	height:100px;
+}
+
 .main {
-	height:700px;
+	height:600px;
 	margin:0 auto;
 	width:70%
 }

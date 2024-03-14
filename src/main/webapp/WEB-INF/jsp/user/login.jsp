@@ -17,6 +17,7 @@
 				<h1 class="text-center" style="padding:40px;">bsoupgram</h1>
 					<div class="container d-flex justify-content-center align-items-center">
 						<div>
+						<form id="loginForm">
 							<div class="pt-3">
 								<input type="text" id="idInput" class="form-control" style="width:350px;" placeholder="아이디">
 							</div>
@@ -24,8 +25,9 @@
 								<input type="password" id="passwordInput" class="form-control" style="width:350px;" placeholder="비밀번호">
 							</div>
 							<div class="pt-3">
-								<button type="button" id="loginBtn" class="form-control btn btn-primary" style="width:350px;">로그인</button>
+								<button type="submit" id="loginBtn" class="form-control btn btn-primary" style="width:350px;">로그인</button>
 							</div>
+						</form>	
 							<div class="box d-flex justify-content-center align-items-center">
 								<div>계정이 없으신가요?</div>
 								<a href="/user/join-view">회원가입</a>
@@ -43,11 +45,14 @@
 
 <script>
 	$(document).ready(function(){
-		
-		$("#loginBtn").on("click", function(){
+		$("#loginForm").on("submit", function(e){
+			// submit 이벤트가 가진 페이지 이동 기능 취소
+			// 이벤트가 가진 기본 기능을 취소한다
 			
-			var id = $("#idInput").val();
-			var password = $("#passwordInput").val();
+			e.preventDefault();
+			
+			let id = $("#idInput").val();
+			let password = $("#passwordInput").val();
 			
 			if(id == ""){
 				alert("아이디를 입력해 주세요.")
@@ -61,8 +66,25 @@
 				return;
 			}
 			
+			$.ajax({
+				type:"post"
+				, url:"/user/login"
+				, data:{"loginId":id, "password":password}
+				, success:function(data){
+					if(data.result == "success"){
+						location.href="/post/timeline-view"
+					} else{
+						alert("로그인 실패")
+					}
+				}
+				, error:function(){
+					alert("로그인 에러")
+				}
+			});
+
+			
+			
 		});
-		
 	});
 </script>
 
