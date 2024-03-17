@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>타임라인</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 </head>
@@ -13,7 +14,62 @@
 	
 	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
-		<section></section>
+		<section class="d-flex justify-content-center container">
+		<!-- 전체 layout -->
+		<div class="container">
+			<!-- 입력 상자 -->
+			<div class="container post border rounded">
+				<div>
+					<textarea class="form-control border-0" rows="4"></textarea>
+				</div>
+				<div class="d-flex justify-content-between pt-3">
+					<label for="img-upload"><i class="bi bi-file-image" style="font-size:25px !important;"></i></label><input id="img-upload" type="file" style="display:none">
+					<button type="button" class="btn btn-primary btn-sm">업로드</button>
+				</div>
+			</div>
+			<!-- /입력 상자 -->
+			
+			<!-- 타임라인 -->
+			<div class="timeline">
+				<!-- 카드 -->
+				<div class="container post-box">
+					<div class="d-flex justify-content-between" style="margin:10px;">
+						<div class="font-25">Hong</div>
+						<i class="bi bi-three-dots font-25"></i>
+					</div>
+					<div>
+						<img src="https://cdn.pixabay.com/photo/2024/01/29/13/00/rabbit-8539830_1280.jpg" class="img-responsive">
+					</div>
+					<div class="p-2">
+						<i class="bi bi-heart font-25"></i> 좋아요 11개
+					</div>
+					<div class="post">
+						토끼
+					</div>
+					<hr>
+					<!-- 댓글 목록 -->
+					<div class="comment-box">	
+						<div class="d-flex comment">
+							<label class="col-1">댓글자</label>
+							<div>댓글</div>
+						</div>
+						<div class="d-flex">
+							<label class="col-1 text-center">댓글자</label>
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="댓글을 입력해 주세요">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="button">입력</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /카드 -->
+			</div>
+			<!-- /타임라인 -->
+		</div>
+		<!-- /전체 layout -->
+		</section>
 		<hr>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
