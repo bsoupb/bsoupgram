@@ -31,20 +31,22 @@
 			
 			<!-- 타임라인 -->
 			<div class="timeline">
+				
+				<c:forEach var="post" items="${postList }">
 				<!-- 카드 -->
 				<div class="container post-box">
 					<div class="d-flex justify-content-between" style="margin:10px;">
-						<div class="font-25">Hong</div>
+						<div class="font-25">${post.userLoginId }</div>
 						<i class="bi bi-three-dots font-25"></i>
 					</div>
 					<div>
-						<img src="https://cdn.pixabay.com/photo/2024/01/29/13/00/rabbit-8539830_1280.jpg" class="img-responsive">
+						<img src="${post.imagePath }" class="img-responsive">
 					</div>
 					<div class="p-2">
 						<i class="bi bi-heart font-25"></i> 좋아요 11개
 					</div>
 					<div class="post">
-						토끼
+						${post.contents }
 					</div>
 					<hr>
 					<!-- 댓글 목록 -->
@@ -65,6 +67,8 @@
 					</div>
 				</div>
 				<!-- /카드 -->
+				</c:forEach>
+				
 			</div>
 			<!-- /타임라인 -->
 		</div>
