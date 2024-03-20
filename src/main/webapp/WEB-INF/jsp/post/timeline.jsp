@@ -23,7 +23,8 @@
 					<textarea class="form-control border-0" rows="4" id="contentsInput"></textarea>
 				</div>
 				<div class="d-flex justify-content-between pt-3">
-					<label for="imgUpload"><i class="bi bi-file-image" style="font-size:25px !important;"></i></label><input id="imgUpload" type="file" style="display:none">
+					<i class="bi bi-file-image" style="font-size:25px !important;" id="imageIcon"></i>
+					<input id="imgUpload" type="file" class="d-none">
 					<button type="button" class="btn btn-primary btn-sm" id="uploadBtn">업로드</button>
 				</div>
 			</div>
@@ -43,7 +44,7 @@
 						<img src="${post.imagePath }" class="img-responsive">
 					</div>
 					<div class="p-2">
-						<i class="bi bi-heart font-25"></i> 좋아요 11개
+						<i class="bi bi-heart font-25 like-icon" data-post-id="${post.postId }"></i> 좋아요 11개
 					</div>
 					<div class="post">
 						${post.contents }
@@ -56,11 +57,10 @@
 							<div>댓글</div>
 						</div>
 						<div class="d-flex">
-							<label class="col-1 text-center">댓글자</label>
 							<div class="input-group">
 								<input type="text" class="form-control" placeholder="댓글을 입력해 주세요">
 								<div class="input-group-append">
-									<button class="btn btn-primary" type="button">입력</button>
+									<button class="btn btn-primary comment-btn" type="button">입력</button>
 								</div>
 							</div>
 						</div>
@@ -85,6 +85,42 @@
 <script>
 	
 	$(document).ready(function(){
+		
+		$(".comment-btn").on("click", function(){
+			
+			
+			
+		});
+		
+		$(".like-icon").on("click", function(){
+			
+			// 이벤트가 발생한 태그 객체
+			// data-post-id
+			let postId = $(this).data("post-id");
+			
+			$.ajax({
+				type:"post"
+				, url:"/post/like"
+				, data:{"postId":postId}
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					} else {
+						alert("좋아요 실패")
+					}
+				}
+				, error:function(){
+					alert("좋아요 에러")
+				}
+			});
+			
+		});
+		
+		$("#imageIcon").on("click", function(){
+			
+			$("#imgUpload").click();
+			
+		});
 		
 		$("#uploadBtn").on("click", function(){
 			

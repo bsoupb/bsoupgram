@@ -27,6 +27,7 @@ public class PostService {
 		
 		String filePath = FileManager.saveFile(userId, file);
 		Post post = Post.builder()
+					.userId(userId)
 					.contents(contents)
 					.imagePath(filePath) 
 					.build();
