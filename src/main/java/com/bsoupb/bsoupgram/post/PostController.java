@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.bsoupb.bsoupgram.post.dto.PostDetail;
 import com.bsoupb.bsoupgram.post.service.PostService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RequestMapping("/post")
 @Controller
 public class PostController {
@@ -19,9 +21,13 @@ public class PostController {
 	private PostService postService;
 	
 	@GetMapping("/timeline-view")
-	public String timeline(Model model) {
+	public String timeline(
+			HttpSession session
+			, Model model) {
 		
-		List<PostDetail> postList = postService.getPostList();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<PostDetail> postList = postService.getPostList(userId);
 		
 		model.addAttribute("postList", postList);
 		

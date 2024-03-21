@@ -44,7 +44,15 @@
 						<img src="${post.imagePath }" class="img-responsive">
 					</div>
 					<div class="p-2">
-						<i class="bi bi-heart font-25 like-icon" data-post-id="${post.postId }"></i> 좋아요 11개
+						<c:choose>
+							<c:when test="${post.like }">
+								<i class="bi bi-heart-fill text-danger font-25 like-icon" data-post-id="${post.postId }"></i> 좋아요 ${post.likeCount }개
+							</c:when>
+							<c:otherwise>
+								<i class="bi bi-heart font-25 like-icon" data-post-id="${post.postId }"></i> 좋아요 ${post.likeCount }개
+							</c:otherwise>
+						</c:choose>
+						
 					</div>
 					<div class="post">
 						${post.contents }
@@ -58,9 +66,9 @@
 						</div>
 						<div class="d-flex">
 							<div class="input-group">
-								<input type="text" class="form-control" placeholder="댓글을 입력해 주세요">
+								<input type="text" class="form-control" placeholder="댓글을 입력해 주세요" id="contentsInput${post.postId }">
 								<div class="input-group-append">
-									<button class="btn btn-primary comment-btn" type="button">입력</button>
+									<button class="btn btn-primary comment-btn" data-post-id="${post.postId }" type="button">입력</button>
 								</div>
 							</div>
 						</div>
@@ -88,7 +96,29 @@
 		
 		$(".comment-btn").on("click", function(){
 			
+			let postId = $(this).data("post-id");
 			
+			// 클릭 이벤트가 발생한 버튼 태그 객체
+			// post-id
+			// 버튼 태그 옆에 있는 태그
+			 let contents = $("#contentsInput" + postId).val();
+			// let comments = $(this).prev().val();
+			
+			$.ajax({
+				type:"post"
+				, url:"/post/comment/create"
+				, data:{"postId":postId, "contents":contents}
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					} else{
+						alert("댓글 실패");
+					}
+				}
+				, error:function(){
+					alert("댓글 에러");
+				}
+			});
 			
 		});
 		

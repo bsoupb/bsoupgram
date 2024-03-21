@@ -13,6 +13,8 @@ public class PostDetail {
 	
 	private int postId;
 	private int userId;
+	private int likeCount;
+	private boolean isLike;
 	private String userLoginId;
 	private String contents;
 	private String imagePath;

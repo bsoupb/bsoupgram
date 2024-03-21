@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ public class CommentRestController {
 	@Autowired
 	private CommentService commentService;
 	
+	@PostMapping("/post/comment/create")
 	public Map<String, String> createComment(
 			@RequestParam("postId") int postId
 			, @RequestParam("contents") String contents
