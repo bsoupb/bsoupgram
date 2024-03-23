@@ -38,7 +38,7 @@
 				<div class="container post-box">
 					<div class="d-flex justify-content-between" style="margin:10px;">
 						<div class="font-25">${post.userLoginId }</div>
-						<i class="bi bi-three-dots font-25"></i>
+						<i class="bi bi-three-dots font-25 dot-icon" data-post-id="${post.postId }"></i>
 					</div>
 					<div>
 						<img src="${post.imagePath }" class="img-responsive">
@@ -60,10 +60,12 @@
 					<hr>
 					<!-- 댓글 목록 -->
 					<div class="comment-box">	
+						<c:forEach var="comment" items="${post.commentList }">
 						<div class="d-flex comment">
-							<label class="col-1">댓글자</label>
-							<div>댓글</div>
+							<label class="col-1">${comment.userLoginId }</label>
+							<div>${comment.contents }</div>
 						</div>
+						</c:forEach>
 						<div class="d-flex">
 							<div class="input-group">
 								<input type="text" class="form-control" placeholder="댓글을 입력해 주세요" id="contentsInput${post.postId }">
@@ -119,6 +121,29 @@
 					alert("댓글 에러");
 				}
 			});
+			
+		});
+		
+		$(".dot-icon").on("click", function(){
+			
+			let postId = $(this).data("post-id");
+			
+			.ajax({
+				type:"delete"
+				, url:"/post/delete"
+				, data:{"id":postId};
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					} else{
+						alert("삭제 실패");
+					}
+				};
+				, error:function(){
+					alert("삭제 에러");
+				};
+			});
+			
 			
 		});
 		

@@ -1,5 +1,9 @@
 package com.bsoupb.bsoupgram.post.dto;
 
+import java.util.List;
+
+import com.bsoupb.bsoupgram.comment.dto.CommentDetail;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -18,5 +22,6 @@ public class PostDetail {
 	private String userLoginId;
 	private String contents;
 	private String imagePath;
+	private List<CommentDetail> commentList;
 	
 }
