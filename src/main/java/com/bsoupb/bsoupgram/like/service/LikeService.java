@@ -1,10 +1,13 @@
 package com.bsoupb.bsoupgram.like.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bsoupb.bsoupgram.like.domain.Like;
 import com.bsoupb.bsoupgram.like.repository.LikeRepository;
+
 
 @Service
 public class LikeService {
@@ -40,4 +43,23 @@ public class LikeService {
 		return count >= 1;
 	}
 	
+	public Like deleteLike(int postId, int userId) {
+		
+		Optional<Like> optionalLike = likeRepository.findByPostIdAndUserId(postId, userId);
+		Like like = optionalLike.orElse(null);
+		
+		if(like != null) {
+
+			likeRepository.delete(like);
+			
+		}
+		
+		return like;
+	}
+	
+	public void deleteLikeByPostId(int postId) {
+		
+		likeRepository.deleteByPostId(postId);
+		
+	}
 }

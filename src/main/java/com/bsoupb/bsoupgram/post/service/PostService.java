@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bsoupb.bsoupgram.comment.dto.CommentDetail;
-import com.bsoupb.bsoupgram.comment.repository.CommentRepository;
 import com.bsoupb.bsoupgram.comment.service.CommentService;
 import com.bsoupb.bsoupgram.common.FileManager;
-import com.bsoupb.bsoupgram.like.repository.LikeRepository;
 import com.bsoupb.bsoupgram.like.service.LikeService;
 import com.bsoupb.bsoupgram.post.domain.Post;
 import com.bsoupb.bsoupgram.post.dto.PostDetail;
@@ -25,12 +23,6 @@ public class PostService {
 	
 	@Autowired
 	private PostRepository postRepository;
-	
-	@Autowired
-	private LikeRepository likeRepository;
-	
-	@Autowired
-	private CommentRepository commentRepository;
 	
 	@Autowired
 	private UserService userService;
@@ -99,9 +91,14 @@ public class PostService {
 		Post post = optionalPost.orElse(null);
 		
 		if(post != null) {
+			
+			// 게시글 좋아요 데이터 삭제
+			likeService.deleteLikeByPostId(id);
+			
+			// 게시글 댓글 데이터 삭제
+			commentService.deleteCommentByPostId(id);
+			
 			FileManager.removeFile(post.getImagePath());
-			commentRepository.delete(post);
-			likeRepository.delete(like);
 			postRepository.delete(post);
 			
 		}
